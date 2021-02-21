@@ -1,15 +1,11 @@
 function findConsonants(){
-    const name = document.getElementById("inputName").value;
-    const consonantsList = 'cdfghjklmnpqrstvwxyz';
-    var contLetters = 0;
-    var out = '';
-
-    for (var i=0; i<name.length; i++)
-        if (consonantsList.indexOf(name[i]) != -1){
-            contLetters++;
-            out += name[i] + ",";
+    var name = document.f1.n1.value;
+    var vocali="aeiou"
+    var consonanti = ""
+    for (var i=0; i<name.length; i++){
+        if(vocali.indexOf(name[i])!= -1){
+            consonanti+= nome[i] + ","
         }
-        document.getElementById("outputLetters").innerHTML = out;
-        document.getElementById("outputNumber").innerHTML = "Sono " + contLetters + " lettere.";
-
+    }
+    document.getElementById("cons").innerHTML = "Le consonanti trovate sono: " + consonanti
 }
