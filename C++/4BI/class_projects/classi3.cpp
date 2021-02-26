@@ -1,115 +1,109 @@
+/*Scriviamo un programma che istanzia un oggetto della classe CC e, facendo uso dei metodi della classe, permette all'utente, 
+dopo aver aperto un conto, discegliere il tipo di operazione da eseguire sul conto corrente stesso.*/
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
+const int N = 10;
+int NUM_C = 0;
+class conto
+{
+    string cliente[N];
+    float saldo[N];
 
-bool verify = false;
+public:
+    void prelievo(float a, string b)
+    {
+        for (int i = 0; i < NUM_C; i++)
+        {
+            if (b == cliente[i])
+            {
+                if (saldo[i] > a)
+                {
+                    saldo[i] -= a;
+                    cout << "Il saldo attuale è di " << saldo[i] << "€ \n";
+                }
+                else
+                {
+                    cout << "Non è possibile effettuare il prelievo perchè la cifra da lei inserita è superiore al saldo attuale che  ammonta a " << saldo[i] << "€ \n";
+                }
+            }
+        }
+    }
+    void versamento(float a, string b)
+    {
+        for (int i = 0; i < NUM_C; i++)
+        {
+            if (b == cliente[i])
+            {
+                saldo[i] += a;
+                cout << "Il saldo attuale è di " << saldo[i] << "€ \n";
+            }
+        }
+    }
+    void crea()
+    {
+        cout << "Inserisci il numero dei clienti da inserire:";
+        cin >> NUM_C;
+        for (int i = 0; i < NUM_C; i++)
+        {
+            cout << "Inserire saldo:";
+            cin >> saldo[i];
+            cout << "Inserire il cognome del cliente:";
+            cin >> cliente[i];
+        }
+    }
+    void stampa()
+    {
+        for (int i = 0; i < NUM_C; i++)
+        {
+            cout << "\t\t Cliente numero " << i + 1 << "\n";
+            cout << "Cliente: " << cliente[i] << " \n";
+            cout << "Saldo: " << saldo[i] << "\n";
+        }
+    }
+};
+int main()
+{
+    int scelta;
+    float a;
+    string b;
+    conto conto;
+    conto.crea();
+    do
+    {
+        cout << "\t\t----MENU' SCELTA----" << endl;
+        cout << "1-Per fare un prelievo,\n"
+                "2-Per fare un versamento,\n"
+                "3-Per fare una stampa dei dati del conto,\n"
+                "0-Per uscire.\n"
+                "Scleta:";
+        cin >> scelta;
+        switch (scelta)
+        {
+        case 0:
+            cout << "Hai deciso di uscire dal programma! \n";
+            break;
+        case 1:
+            cout << "Inserie nome cliente dal quale si vuole prelevare:";
+            cin >> b;
+            cout << "Inserire la cifra da prelevare:";
+            cin >> a;
+            conto.prelievo(a, b);
+            break;
+        case 2:
+            cout << "Inserie nome cliente nel quale si vuole fare un versamento:";
+            cin >> b;
+            cout << "Inserire la cifra da versare:";
+            cin >> a;
+            conto.versamento(a, b);
+            break;
+        case 3:
+            conto.stampa();
+            break;
+        default:
+            cout << "!Scelta sbagliata riprova! \n";
+            break;
+        }
 
-class day {
-  float tmin;
-  float tmax;
-public:
-  day(float new_tmin, float new_tmax) {
-    tmin = new_tmin;
-    tmax = new_tmax;
-  }
-  float calculation() {
-    return (tmax - tmin);
-  }
-  void print_temperature(int j) {
-    if (tmin != 0 && tmax != 0) {
-      cout << "Giorno " << j+1 << ":\n";
-      cout << "Temperatura massima: " << tmax
-           << "\nTemperatura minima: " << tmin << "\n";
-    }
-  }
-  float average(){
-    return((tmax+tmin)/2);
-  }
-};
-vector<day> december;
-class days {
-public:
-  void temperature_range(float num) {
-    for (int j = 0; j < december.size(); j++) {
-      if (j == num) {
-        cout << "L'escursione termica del giorno " << j+1 << " e' " << december[j].calculation() <<"\n";
-        verify = true;
-      }
-    }
-    if (!verify)
-      cout << "ERROR==>Il giorno inserito non esiste!\n";
-    verify = false;
-  }
-  void print_zero() {
-    cout << "\t\t~Lista dei giorni copn le temperature maggiori di zero:~\n";
-    for (int j = 0; j < december.size(); j++) {
-      december[j].print_temperature(j);
-    }
-  }
-  void print_average() {
-    cout<<"\t\t~Lista medie giornaliere:~\n";
-    for(int j = 0; j < december.size(); j++){
-      cout<<"Giorno "<< j+1 << ":\n";
-      cout<<"Media giornaliera: " << december[j].average() << "\n";
-    }
-  }
-};
-int main() {
-  days d;
-  int choice = 0, i = 1;
-  do {
-    cout << "\t\t----MENU' SCELTA---- \n";
-    cout << "1-Per inserire la temperatura del giorno " << i
-         << ",\n"
-            "2-Per avere l'escursione termica di un giorno,\n"
-            "3-Per stampare i giorni che hanno avuto una temperatura sopra lo "
-            "zero,\n"
-            "4-Per stampare le medie delle temeprature giornaliere,\n"
-            "0-Per uscire.\n"
-            "Scelta:";
-    cin >> choice;
-    switch (choice) {
-    case 0:
-      cout << "Hai deciso di uscire dal programma\n";
-      break;
-    case 1: {
-      if (i <= 31) {
-        float new_tmin, new_tmax;
-        cout << "\t\tTemperatura del giorno " << i << ":\n";
-        cout << "Inserisci temperatura minima della giornata:";
-        cin >> new_tmin;
-        cout << "Inserisci temperatura massima della giornata:";
-        cin >> new_tmax;
-        day temperatures(new_tmin, new_tmax);
-        december.push_back(temperatures);
-        i++;
-      } else {
-        cout << "~Hai raggiunto il massimo dei giorni disponibili di "
-                "dicembre~\n";
-      }
-      cout << "============================================\n";
-    } break;
-    case 2: {
-      float num;
-      cout << "Inserire il numero del giorno del quale si vuole sapere "
-              "l'escursione termica:";
-      cin >> num;
-      num--;
-      d.temperature_range(num);
-      cout << "============================================\n";
-    } break;
-    case 3:
-      d.print_zero();
-      cout << "============================================\n";
-      break;
-    case 4:
-      d.print_average();
-      cout << "============================================\n";
-      break;
-    default:
-      cout << "ERROR==>Opzione non disponibile\n";
-      break;
-    }
-  } while (choice != 0);
+    } while (scelta != 0);
 }
