@@ -38,7 +38,7 @@ public:
       }
     }
     if (!verify)
-      cout << "ERROR==>Il giorno inserito non esiste!\n";
+      cout << "ERROR==>Le temperature del giorno inserito non sono ancora state inserite!\n";
     verify = false;
   }
   void print_zero() {
@@ -65,7 +65,7 @@ int main() {
             "2-Per avere l'escursione termica di un giorno,\n"
             "3-Per stampare i giorni che hanno avuto una temperatura sopra lo "
             "zero,\n"
-            "4-Per stampare le medie delle temeprature giornaliere,\n"
+            "4-Per stampare le medie delle temperature giornaliere,\n"
             "0-Per uscire.\n"
             "Scelta:";
     cin >> choice;
