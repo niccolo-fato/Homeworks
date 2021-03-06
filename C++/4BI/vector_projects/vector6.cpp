@@ -17,26 +17,26 @@ class supermarket {
 
 public:
   supermarket(string new_supermarket) { name_supermarket = new_supermarket; }
-  void print_market(departments d) {
+  void print_market() {
     int num_departments = shop.size();
     float sum = 0;
     if (num_departments != 0) {
       for (int i = 0; i < shop.size(); i++) {
-        cout << "Nome reparto:" << d.name_department
-             << "\nIncasso:" << d.recessed << "$\n";
-        sum += d.recessed;
+        cout << "Nome reparto:" << shop[i].name_department
+             << "\nIncasso:" << shop[i].recessed << "$\n";
+        sum += shop[i].recessed;
       }
-      cout << "La somma degli incassi e' " << sum << "\n";
+      cout << "La somma degli incassi e' " << sum << "$\n";
     } else {
       cout << "\t\t----!Non ha reparti!----\n";
     }
   }
-  float max_supermarket(departments d) {
+  float max_supermarket() {
     int num_departments = shop.size();
     float sum = 0;
     if (num_departments != 0) {
       for (int i = 0; i < shop.size(); i++) {
-        sum += d.recessed;
+        sum += shop[i].recessed;
       }
     }
     return sum;
@@ -47,10 +47,9 @@ public:
 vector<supermarket> market;
 class supermarkets {
 
-  departments d;
-
 public:
   void new_department(string search_supermarket) {
+    departments d;
     cout << "Inserire il nome del reparto:";
     cin >> d.name_department;
     cout << "Inserire l'incasso del reparto:";
@@ -71,7 +70,7 @@ public:
     for (int i = 0; i < market.size(); i++) {
       cout << "\t\t Stampa reparti del supermercato "
            << market[i].return_supermarket() << ":\n";
-      market[i].print_market(d);
+      market[i].print_market();
     }
   }
   void print_max() {
@@ -79,8 +78,8 @@ public:
     string max_supermarket;
     cout << "Calcolo degli incassi in corso...\n";
     for (int i = 0; i < market.size(); i++) {
-      if (market[i].max_supermarket(d) > max) {
-        max = market[i].max_supermarket(d);
+      if (market[i].max_supermarket() > max) {
+        max = market[i].max_supermarket();
         max_supermarket = market[i].return_supermarket();
       }
     }
