@@ -26,7 +26,7 @@ public:
     count = 0;
     vote_sum = 0;
   }
-  void print_student(materia v) {
+  void print_student() {
     int num_votes = votes.size();
     cout << "Nome: " << name << "\n";
     cout << "Cognome: " << surname << "\n";
@@ -36,7 +36,7 @@ public:
     cout << "\t\tInterrogazioni:\n";
     if (num_votes != 0) {
       for (int i = 0; i < votes.size(); i++) {
-        cout << "In " << v.subject << " ha preso " << v.vote << "\n";
+        cout << "In " << votes[i].subject << " ha preso " << votes[i].vote << "\n";
       }
     } else {
       cout << "\t\t----!Non ha voti!----\n";
@@ -89,7 +89,7 @@ public:
     cout << "\t\tLista studenti:\n";
     for (int i = 0; i < s.size(); i++) {
       cout << "Studente numero " << i + 1 << ":\n";
-      s[i].print_student(v);
+      s[i].print_student();
     }
   }
 };
